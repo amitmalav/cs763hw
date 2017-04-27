@@ -1,7 +1,7 @@
 local Linear = 	torch.class("Linear")
 
 -- init function
-function Linear::__init(inp_neuron,out_neuron)
+function Linear:__init(inp_neuron,out_neuron)
 	self.output = nil
 	self.W = torch.tensor(out_neuron,inp_neuron):zero()
 	self.B = torch.tensor(out_neuron,1):zero()
