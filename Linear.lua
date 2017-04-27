@@ -19,7 +19,8 @@ end
 -- gradinput = dL/dn gradOutput = dL/dm
 -- gradW = dL/dW gradB = dL/dB
 function Linear:backward(input,gradOutput)
-	gradInput = gradOutput * self.W
-	gradW = gradOutput * input
-	gradB = gradOutput
+	self.gradInput = gradOutput * self.W
+	self.gradW = gradOutput * input
+	self.gradB = gradOutput
+	return self.gradInput
 end
