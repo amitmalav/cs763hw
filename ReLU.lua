@@ -17,6 +17,6 @@ function ReLU:backward(input, gradOutput)
 	loss = 1
 	if input < 0 then
 		loss = 0
-	gradInput = gradOutput * loss
-	return gradInput
+	self.gradInput = gradOutput * loss
+	return self.gradInput
 end
