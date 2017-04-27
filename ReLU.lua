@@ -1,22 +1,22 @@
 local ReLU = torch.class("ReLU")
 function ReLU:__init()
 	self.output = nil
-	self.gradInput = torch.zeros(10):float()
+	self.gradInput = nil
 
-
--- L_i = -log(e^yi/sum_j(e^yj)) + lambda*||W||^2
-function ReLU:forward(op, ti, model, lambda)
-	op = op:exp()
-	op = op/(op:sum())
-	local lossL2 = model.W:clone()
-	lossL2 = lossL2:cmul(lossL2):sum()
-	self.output = -math.log(op[ti]) + lambda * lossL2
+--output = max(0, input)
+function ReLU:forward(input)
+	self.output = torch.max(0, input)
 	return self.output
 end
 
-function ReLU:backward(op, ti)
-    self.gradInput:fill(0)
-    self.gradInput[ti] = 1
-    self.gradInput = self.gradInput - op
-    return self.gradInput
+--gradLoss = dm/dn
+--gradOutput = dL/dm
+--gradinput = dL/dn = dL/dm * dm/dn
+
+function ReLU:backward(input, gradOutput)
+	loss = 1
+	if input < 0 then
+		loss = 0
+	gradInput = gradOutput * loss
+	return gradInput
 end
