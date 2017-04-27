@@ -1,7 +1,7 @@
-require "Model"
-require "Linear"
-require "Criterion"
-require "ReLU"
+require "src/Model"
+require "src/Linear"
+require "src/Criterion"
+require "src/ReLU"
 local cmd = torch.CmdLine()
 cmd:text()
 cmd:text('checking model')
