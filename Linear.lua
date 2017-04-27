@@ -16,6 +16,10 @@ function Linear:forward(input)
 	return self.output
 end
 
+-- gradinput = dL/dn gradOutput = dL/dm
+-- gradW = dL/dW gradB = dL/dB
 function Linear:backward(input,gradOutput)
-	
+	gradInput = gradOutput * self.W
+	gradW = gradOutput * input
+	gradB = gradOutput
 end
