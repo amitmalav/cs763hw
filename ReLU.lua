@@ -20,3 +20,15 @@ function ReLU:backward(input, gradOutput)
 	self.gradInput = gradOutput * loss
 	return self.gradInput
 end
+
+function  ReLU:printParam()
+	-- body
+	print(self.gradOutput)
+end
+
+function  ReLU:clearParam()
+	-- body
+	-- self.gradW = torch.tensor(out_neuron,inp_neuron):zero()
+	-- self.gradB = torch.tensor(out_neuron,1):zero()
+
+end

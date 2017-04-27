@@ -10,7 +10,7 @@ function Model::forward( input )
 	-- body
 	layerInput = input
 	for layer in self.Layers do
-		layerInput = later.forward(layerInput)
+		layerInput = layer.forward(layerInput)
 	end
 	return layerInput
 end
@@ -18,25 +18,27 @@ end
 function  Model::backward( input,gradOutput )
 	-- body
 	layerOutput = gradOutput
-	for i=1,self.count do
+	for i=1,self.count-1 do
 		layerOutput = self.Layers[self.count - i].backward(self.Layers[self.count - i - 1].output,layerOutput)
 	end
 	layerOutput = self.Layers[0].backward(input,layerOutput)
 end
 
-function  Model::dispGradParam( )
+function  Model::dispGradParam()
 	-- body
 	for i=1,self.count do
-		print self.Layers[self.count - i].W, self.Layers[self.count - i].B
-end
-
-function Model::clearGradParam()
-	for i=1,self.count do
-		print(i)
+		self.Layers[self.count - i].printParam()
 	end
 end
 
-function Model::addLayer( Layer class object )
+function Model::clearGradParam()
+	-- body
+	for i=1,self.count do
+		self.Layers[self.count - i].clearParam()
+	end
+end
+
+function Model::addLayer(object)
 	-- body
 	self.Layers[self.count] = object
 	self.count = self.count + 1
